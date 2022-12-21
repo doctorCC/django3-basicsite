@@ -28,7 +28,7 @@ urlpatterns = [
     path("currenttodos/", views.currenttodos, name='currenttodos'),
     path("create/", views.createtodos, name='createtodos'),
 #THis allows the primary key to be used to look at an Object in the database
-    path("todo/<int:todo_pk", views.viewtodo, name='viewtodo'),
+    path("todo/<int:todo_pk>", views.viewtodo, name='viewtodo'),
 
     path("home/", views.home, name='home'),
     path("", views.home, name='home'),

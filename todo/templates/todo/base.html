@@ -2,9 +2,9 @@
 {% if user.is_authenticated %}
 Logged in as {{ user.username }}<p>
 
-<!--Comment out the href, so we are actually using a POST to get to this location
-    <a href="{% url 'logoutuser' %}">Logout</a> -->
-
+<a href="{% url 'home' %}">home</a> &nbsp;
+<a href="{% url 'currenttodos' %}">Current Todos</a> &nbsp;
+<a href="{% url 'createtodos' %}">Create a Todo</a> &nbsp;
 <form action="{% url 'logoutuser' %}" method="POST">
     {% csrf_token %}
 <button type="submit">Logout</button>

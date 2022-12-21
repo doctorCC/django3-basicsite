@@ -1,4 +1,4 @@
-<h1>Current todos</h1>
+<h1>View todos</h1>
 <!-- This is where we define the base that we want to use ['todo/base.html'],
  and the tag names ['block content' and 'endblock'] -->
 {% extends 'todo/base.html' %}
@@ -10,9 +10,6 @@ These are all items to do!
 <ul>
     {% for todo in todos %}
     <li>
-        <!-- We can have Link to a viewtodo.html page -->
-        <a href="{% url 'viewtodo' todo.id %}">
-        ID = {{ todo.id }} </a> xxx 
         <!-- this tests a boolean that is returned from the database -->
         {%if todo.important %}
             <b>{{ todo.title }}</b>

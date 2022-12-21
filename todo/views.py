@@ -39,10 +39,22 @@ def currenttodos(request):
     return render(request, 'todo/currenttodos.html',{'todos':todos})
 
 #This view takes an arg for the primary key of the Todo object we want
-def viewtodos(request, todo_pk):
+def viewtodo(request, todo_pk):
     #Use the Primary Key and just get that record
-    todo = get_object_or_404.(Todo, todo.pk)
-    return render(request, 'todo/viewtodos.html',{'todo':todo})
+    todo = get_object_or_404(Todo, pk=todo_pk)
+    #Create a new Form, using what we got in the last step
+    form = TodoForm(instance=todo)
+    if request.method == 'GET':
+        return render(request, 'todo/viewtodo.html',{'todo':todo, 'form':form})
+    else:
+        try:
+            form = TodoForm(request.POST, instance=todo)
+            form.save()
+            return redirect('currenttodos')
+        except ValueError:
+            #Send them back to the create page with the erro dictionary
+            return render(request, 'todo/viewtodo.html',{'form':TodoForm(),'error':"Bad data passed in view page"})
+
 
 def createtodos(request):
     if request.method == 'GET':
