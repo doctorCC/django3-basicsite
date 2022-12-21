@@ -1,0 +1,22 @@
+<h1>Current todos</h1>
+<!-- This is where we define the base that we want to use ['todo/base.html'],
+ and the tag names ['block content' and 'endblock'] -->
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+These are all items to do!
+<!-- we should loop through all the objects -->
+<ul>
+    {% for todo in todos %}
+    <li>
+        <!-- this tests a boolean that is returned from the database -->
+        {%if todo.important %}
+            <b>{{ todo.title }}</b>
+        {% else %}
+            {{ todo.title }}
+        {% endif %}
+    {% endfor %}
+    </li>
+</ul>
+{% endblock %}

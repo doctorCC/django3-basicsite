@@ -1,0 +1,21 @@
+<!-- We check to see if a User is authenticated or not, using a built in function -->
+{% if user.is_authenticated %}
+Logged in as {{ user.username }}<p>
+
+<!--Comment out the href, so we are actually using a POST to get to this location
+    <a href="{% url 'logoutuser' %}">Logout</a> -->
+
+<form action="{% url 'logoutuser' %}" method="POST">
+    {% csrf_token %}
+<button type="submit">Logout</button>
+    </form>
+{% else %}
+
+<a href="{% url 'signupuser' %}">Signup</a><br>
+<a href="{% url 'loginuser' %}">Log In</a><br>
+{% endif %}
+
+<!-- Here is where we can add the Contents of other pages -->
+{% block content %}
+
+{% endblock %}

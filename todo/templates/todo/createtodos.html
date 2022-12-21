@@ -1,0 +1,15 @@
+<!-- This is where we define the base that we want to use ['todo/base.html'],
+ and the tag names ['block content' and 'endblock'] -->
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<h2>{{ error }}</h2>
+
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Create Todo</button>
+</form>
+
+{% endblock %}

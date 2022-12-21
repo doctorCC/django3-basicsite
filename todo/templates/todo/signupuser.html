@@ -1,0 +1,22 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+
+<h1>Sign up User page</h1>
+<!-- Warning messages and errors gt reported first -->
+{{ error }}
+
+<form method="POST">
+<!-- Hidden field to prevent cross sit eattacks -->
+{% csrf_token %}
+
+    <!-- the 'as_p'  make it pretty print -->
+
+{{ form.as_p }}
+
+<button type="submit">Sign Up </button>
+</form>
+
+
+{% endblock %}
