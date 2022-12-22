@@ -10,6 +10,8 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm
 #We want to query this table
 from .models import Todo
+#Increase security by REQUIRING a User to be logged in for various functions.
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def signupuser(request):
     #Check the object coming it see what it is
@@ -33,13 +35,17 @@ def signupuser(request):
             #send them back to the signup page, but with the error
             return render(request, 'todo/signupuser.html', {'form':UserCreationForm, 'error':'Passwords do not match'})
 
+#The 'login_required' will prevent anyone from getting to 'def currenttodos'
+@login_required
 def currenttodos(request):
     #Create a query to get Todos that are related to this User
     todos = Todo.objects.filter(user=request.user)
     return render(request, 'todo/currenttodos.html',{'todos':todos})
 
-#This view takes an arg for the primary key of the Todo object we want
+#The 'login_required' will prevent anyone from getting to 'def viewtodo'
+@login_required
 def viewtodo(request, todo_pk):
+    #This view takes an arg for the primary key of the Todo object we want
     #Use the Primary Key and just get that record
     todo = get_object_or_404(Todo, pk=todo_pk)
     #Create a new Form, using what we got in the last step
@@ -55,7 +61,8 @@ def viewtodo(request, todo_pk):
             #Send them back to the create page with the erro dictionary
             return render(request, 'todo/viewtodo.html',{'form':TodoForm(),'error':"Bad data passed in view page"})
 
-
+#The 'login_required' will prevent anyone from getting to 'def createtodos'
+@login_required
 def createtodos(request):
     if request.method == 'GET':
         #we know they are just coming to the page
@@ -78,6 +85,8 @@ def createtodos(request):
 def home(request):
     return render(request, 'todo/home.html')
 
+#The 'login_required' will prevent anyone from getting to 'def logoutuser'
+@login_required
 def logoutuser(request):
     #Only do this if it is a POST, not a GET to prevent accidental logging out
     if request.method == 'POST':
